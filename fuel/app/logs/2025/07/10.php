@@ -12,3 +12,10 @@ ERROR - 2025-07-10 01:16:48 --> Notice - Undefined variable: current_user in /va
 WARNING - 2025-07-10 01:17:17 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
 WARNING - 2025-07-10 01:17:27 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
 WARNING - 2025-07-10 01:18:37 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2025-07-10 01:29:37 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2025-07-10 01:31:24 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+ERROR - 2025-07-10 01:31:24 --> Error - Could not find asset: bootstrap.css in /var/www/html/my_fuel_project/fuel/core/classes/asset/instance.php on line 413
+WARNING - 2025-07-10 01:33:30 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+ERROR - 2025-07-10 01:33:30 --> Error - Could not find asset: bootstrap.css in /var/www/html/my_fuel_project/fuel/core/classes/asset/instance.php on line 413
+WARNING - 2025-07-10 01:33:38 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2025-07-10 01:34:32 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
