@@ -56,3 +56,47 @@ WARNING - 2025-07-10 17:50:59 --> Fuel\Core\Fuel::init - The configured locale e
 WARNING - 2025-07-10 17:54:55 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
 ERROR - 2025-07-10 17:54:56 --> Error - Class 'Orm\Model' not found in /var/www/html/my_fuel_project/fuel/app/classes/model/user.php on line 2
 WARNING - 2025-07-10 18:35:44 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2025-07-10 18:46:36 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2025-07-10 19:02:13 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2025-07-10 19:02:29 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2025-07-10 19:02:45 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2025-07-10 19:02:51 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2025-07-10 19:06:25 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2025-07-10 19:06:30 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2025-07-10 19:06:35 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2025-07-10 19:06:36 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2025-07-10 19:06:43 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2025-07-10 19:12:42 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2025-07-10 21:39:42 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2025-07-10 21:47:39 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+ERROR - 2025-07-10 21:47:40 --> Error - Class 'Fuel\Core\Migration' not found in /var/www/html/my_fuel_project/fuel/app/migrations/001_create_users_projects_tasks.php on line 8
+WARNING - 2025-07-10 21:50:42 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2025-07-10 21:52:54 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+ERROR - 2025-07-10 21:52:54 --> Error - Class 'Migration' not found in /var/www/html/my_fuel_project/fuel/app/migrations/001_create_users_projects_tasks.php on line 8
+WARNING - 2025-07-10 21:55:47 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+ERROR - 2025-07-10 21:55:48 --> Error - Class 'Fuel\Core\Migration' not found in /var/www/html/my_fuel_project/fuel/app/migrations/001_create_users_projects_tasks.php on line 9
+WARNING - 2025-07-10 21:57:30 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2025-07-10 21:57:35 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2025-07-10 22:01:54 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+ERROR - 2025-07-10 22:01:54 --> Error - Class 'Fuel\Core\Migration' not found in /var/www/html/my_fuel_project/fuel/app/migrations/001_create_users_projects_tasks.php on line 9
+WARNING - 2025-07-10 22:02:05 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+ERROR - 2025-07-10 22:02:05 --> Error - Class 'Fuel\Migrations\Migration' not found in /var/www/html/my_fuel_project/fuel/app/migrations/001_create_users_projects_tasks.php on line 9
+WARNING - 2025-07-10 22:04:04 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+ERROR - 2025-07-10 22:04:05 --> Error - Class 'Fuel\Migrations\Migration' not found in /var/www/html/my_fuel_project/fuel/app/migrations/001_create_users_projects_tasks.php on line 9
+WARNING - 2025-07-10 22:04:19 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+ERROR - 2025-07-10 22:04:19 --> Error - Class 'Migration' not found in /var/www/html/my_fuel_project/fuel/app/migrations/001_create_users_projects_tasks.php on line 9
+WARNING - 2025-07-10 22:06:18 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+ERROR - 2025-07-10 22:06:18 --> Error - Class 'Migration' not found in /var/www/html/my_fuel_project/fuel/app/migrations/001_create_users_projects_tasks.php on line 9
+WARNING - 2025-07-10 22:12:18 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+ERROR - 2025-07-10 22:12:19 --> Error - Class 'Fuel\Core\Migration' not found in /var/www/html/my_fuel_project/fuel/app/migrations/001_create_users_projects_tasks.php on line 9
+WARNING - 2025-07-10 22:14:02 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+ERROR - 2025-07-10 22:14:03 --> Error - Class 'Migration' not found in /var/www/html/my_fuel_project/fuel/app/migrations/001_create_users_projects_tasks.php on line 9
+WARNING - 2025-07-10 22:15:22 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2025-07-10 22:17:37 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+ERROR - 2025-07-10 22:17:37 --> Error - Class 'Migration' not found in /var/www/html/my_fuel_project/fuel/app/migrations/001_create_users_projects_tasks.php on line 9
+WARNING - 2025-07-10 22:19:24 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+ERROR - 2025-07-10 22:19:24 --> Error - Class 'Migration' not found in /var/www/html/my_fuel_project/fuel/app/migrations/001_create_users_projects_tasks.php on line 9
+WARNING - 2025-07-10 22:28:39 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+ERROR - 2025-07-10 22:28:39 --> Error - Class 'Fuel\Core\Migration' not found in /var/www/html/my_fuel_project/fuel/app/migrations/001_create_users_projects_tasks.php on line 9
+WARNING - 2025-07-10 22:31:54 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+ERROR - 2025-07-10 22:31:54 --> Error - Class 'Migration' not found in /var/www/html/my_fuel_project/fuel/app/migrations/001_create_users_projects_tasks.php on line 8
