@@ -113,6 +113,8 @@ return array(
 	 * Security settings
 	 */
 	'security' => array(
+		
+
 		// 'csrf_autoload'            => false,
 		// 'csrf_autoload_methods'    => array('post', 'put', 'delete'),
 		// 'csrf_bad_request_on_fail' => false,
@@ -184,6 +186,7 @@ return array(
 			'Closure',
 		),
 	),
+	
 
 	/**
 	 * Cookie settings
@@ -310,6 +313,6 @@ return array(
 		 * If you don't want the lang in a group use null as groupname.
 		 */
 		// 'language'  => array(),
-	// ),
+	),
 
 );
