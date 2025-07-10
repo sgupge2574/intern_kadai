@@ -1,3 +1,4 @@
+<?php
 class Model_Project extends \Orm\Model
 {
     protected static $_table_name = 'projects';

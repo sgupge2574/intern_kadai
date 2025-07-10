@@ -49,3 +49,9 @@ WARNING - 2025-07-10 17:08:46 --> Fuel\Core\Fuel::init - The configured locale e
 WARNING - 2025-07-10 17:08:46 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
 WARNING - 2025-07-10 17:09:05 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
 WARNING - 2025-07-10 17:09:11 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2025-07-10 17:11:14 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2025-07-10 17:11:23 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+ERROR - 2025-07-10 17:11:23 --> Error - Class 'Model_User' not found in /var/www/html/my_fuel_project/fuel/app/classes/controller/auth.php on line 65
+WARNING - 2025-07-10 17:50:59 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2025-07-10 17:54:55 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+ERROR - 2025-07-10 17:54:56 --> Error - Class 'Orm\Model' not found in /var/www/html/my_fuel_project/fuel/app/classes/model/user.php on line 2
