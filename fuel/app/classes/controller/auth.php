@@ -5,7 +5,7 @@ class Controller_Auth extends Controller
     public function action_login()
     {
         // 既にログイン済みの場合はリダイレクト
-        if (Session::get('user_name')) {
+        if (Session::get('user_id')) {
             Response::redirect('project');
         }
 
@@ -27,14 +27,14 @@ class Controller_Auth extends Controller
                     ));
 
                     if ($user) {
-                        Session::set('user_name', $user->username);
+                        Session::set('user_id', $user->id);
                         Session::set_flash('success', $user->username . 'さん、おかえりなさい！');
                         Response::redirect('project');
                     } else {
                         Session::set_flash('error', 'ユーザー名またはパスワードが間違っています');
                     }
                 } catch (Exception $e) {
-                    Session::set_flash('error', 'データベース接続エラーが発生しました');
+                    Session::set_flash('error', 'データベース接続エラー: ' . $e->getMessage());
                 }
             } else {
                 Session::set_flash('error', '入力内容を確認してください');
@@ -47,7 +47,7 @@ class Controller_Auth extends Controller
     public function action_register()
     {
         // 既にログイン済みの場合はリダイレクト
-        if (Session::get('user_name')) {
+        if (Session::get('user_id')) {
             Response::redirect('project');
         }
 
@@ -76,7 +76,7 @@ class Controller_Auth extends Controller
                         ));
                         $user->save();
 
-                        Session::set('user_name', $user->username);
+                        Session::set('user_id', $user->username);
                         Session::set_flash('success', $user->username . 'さん、アカウントを作成しました！');
                         Response::redirect('project');
                     }
@@ -93,7 +93,7 @@ class Controller_Auth extends Controller
 
     public function action_logout()
     {
-        Session::delete('user_name');
+        Session::delete('user_id');
         Session::set_flash('success', 'ログアウトしました');
         Response::redirect('auth/login');
     }

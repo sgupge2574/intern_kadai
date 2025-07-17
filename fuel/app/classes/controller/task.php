@@ -7,7 +7,7 @@ class Controller_Task extends Controller
         parent::before();
         
         // ログインチェック
-        if (!Session::get('user_name')) {
+        if (!Session::get('user_id')) {
             Response::redirect('auth/login');
         }
     }
@@ -16,7 +16,7 @@ class Controller_Task extends Controller
     {
         // プロジェクトの存在確認
         $project = Model_Project::find($project_id);
-        if (!$project || $project->user_name !== Session::get('user_name')) {
+        if (!$project || $project->user_id !== Session::get('user_id')) {
             Session::set_flash('error', 'プロジェクトが見つかりません');
             Response::redirect('project');
         }
@@ -39,7 +39,7 @@ class Controller_Task extends Controller
                     Session::set_flash('success', 'タスクを追加しました');
                     Response::redirect('project/view/'.$project_id);
                 } catch (Exception $e) {
-                    Session::set_flash('error', 'データベースエラーが発生しました');
+                    Session::set_flash('error', 'データベース接続エラー: ' . $e->getMessage());
                 }
             } else {
                 Session::set_flash('error', 'タスク名を入力してください');
@@ -48,7 +48,7 @@ class Controller_Task extends Controller
 
         return Response::forge(View::forge('task/create', array(
             'project' => $project,
-            'current_user' => Session::get('user_name')
+            'current_user' => Session::get('user_id')
         )));
     }
 
@@ -62,7 +62,7 @@ class Controller_Task extends Controller
 
         // タスクの所有者確認
         $project = Model_Project::find($task->project_id);
-        if (!$project || $project->user_name !== Session::get('user_name')) {
+        if (!$project || $project->user_id !== Session::get('user_id')) {
             Session::set_flash('error', 'アクセス権限がありません');
             Response::redirect('project');
         }
@@ -80,7 +80,7 @@ class Controller_Task extends Controller
                     Session::set_flash('success', 'タスクを更新しました');
                     Response::redirect('project/view/'.$task->project_id);
                 } catch (Exception $e) {
-                    Session::set_flash('error', 'データベースエラーが発生しました');
+                    Session::set_flash('error', 'データベース接続エラー: ' . $e->getMessage());
                 }
             } else {
                 Session::set_flash('error', 'タスク名を入力してください');
@@ -90,7 +90,7 @@ class Controller_Task extends Controller
         return Response::forge(View::forge('task/edit', array(
             'task' => $task,
             'project' => $project,
-            'current_user' => Session::get('user_name')
+            'current_user' => Session::get('user_id')
         )));
     }
 
@@ -105,7 +105,7 @@ class Controller_Task extends Controller
 
             // タスクの所有者確認
             $project = Model_Project::find($task->project_id);
-            if (!$project || $project->user_name !== Session::get('user_name')) {
+            if (!$project || $project->user_id !== Session::get('user_id')) {
                 Session::set_flash('error', 'アクセス権限がありません');
                 Response::redirect('project');
             }
@@ -131,7 +131,7 @@ class Controller_Task extends Controller
 
             // タスクの所有者確認
             $project = Model_Project::find($task->project_id);
-            if (!$project || $project->user_name !== Session::get('user_name')) {
+            if (!$project || $project->user_id !== Session::get('user_id')) {
                 return Response::forge(json_encode(array('success' => false)), 403);
             }
 

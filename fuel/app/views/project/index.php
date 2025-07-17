@@ -3,117 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>プロジェクト一覧 - プロジェクト管理</title>
-    <style>
-        /* 省略可能：CSSはcreate.phpと同じですので、必要ならコピペしてください */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f9fafb;
-            min-height: 100vh;
-        }
-        .container {
-            max-width: 1024px;
-            margin: 0 auto;
-            padding: 24px;
-        }
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 24px;
-        }
-        .title {
-            font-size: 24px;
-            font-weight: bold;
-            color: #111827;
-        }
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-        .user-name {
-            font-size: 14px;
-            color: #6b7280;
-        }
-        .logout-btn {
-            font-size: 14px;
-            color: #2563eb;
-            text-decoration: underline;
-            background: none;
-            border: none;
-            cursor: pointer;
-        }
-        .logout-btn:hover {
-            color: #1d4ed8;
-        }
-        .flash-message {
-            padding: 12px;
-            margin-bottom: 16px;
-            border-radius: 6px;
-            border: 1px solid;
-        }
-        .flash-success {
-            background-color: #f0fdf4;
-            border-color: #bbf7d0;
-            color: #166534;
-        }
-        .flash-error {
-            background-color: #fef2f2;
-            border-color: #fecaca;
-            color: #991b1b;
-        }
-        .project-list {
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            padding: 24px;
-        }
-        .project-item {
-            padding: 12px 0;
-            border-bottom: 1px solid #e5e7eb;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .project-item:last-child {
-            border-bottom: none;
-        }
-        .project-name {
-            font-size: 16px;
-            color: #111827;
-        }
-        .project-actions a {
-            font-size: 14px;
-            margin-left: 8px;
-            color: #2563eb;
-            text-decoration: underline;
-        }
-        .btn {
-            display: inline-block;
-            margin-top: 16px;
-            padding: 8px 16px;
-            background-color: #2563eb;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            font-size: 14px;
-            text-decoration: none;
-        }
-        .btn:hover {
-            background-color: #1d4ed8;
-        }
-    </style>
+    <title>プロジェクト管理</title>
+	 <link rel="stylesheet" href="/assets/css/style.css">
 </head>
 <body>
     <div class="container">
         <!-- ヘッダー -->
         <div class="header">
-            <h1 class="title">プロジェクト一覧</h1>
+            <h1 class="title">プロジェクト管理</h1>
             <div class="user-info">
-                <span class="user-name">こんにちは、<?php echo htmlspecialchars($current_user, ENT_QUOTES, 'UTF-8'); ?>さん</span>
+                <span class="user-name">こんにちは
                 <button class="logout-btn" onclick="logout()">ログアウト</button>
             </div>
         </div>
@@ -131,29 +30,89 @@
             </div>
         <?php endif; ?>
 
-        <!-- プロジェクトリスト -->
-        <div class="project-list">
-            <?php if ($projects): ?>
-                <?php foreach ($projects as $project): ?>
-                    <div class="project-item">
-                        <span class="project-name"><?php echo Html::chars($project->name); ?></span>
+        <!-- プロジェクト一覧セクション -->
+        <div data-bind="with: projectViewModel">
+            <div class="section-header">
+                <h2 class="section-title">プロジェクト一覧</h2>
+                <a href="<?php echo Uri::create('project/create'); ?>" class="btn btn-primary">
+                    + 新しいプロジェクト
+                </a>
+            </div>
+
+            <!-- 空の状態 -->
+            <div class="empty-state" data-bind="visible: projects().length === 0">
+                <p class="empty-message">プロジェクトがありません</p>
+                <a href="<?php echo Uri::create('project/create'); ?>" class="btn btn-primary">
+                    最初のプロジェクトを作成
+                </a>
+            </div>
+
+            <!-- プロジェクト一覧 -->
+            <div class="project-list" data-bind="visible: projects().length > 0, foreach: projects">
+                <div class="project-item">
+                    <div class="project-content">
+                        <div class="project-info" data-bind="click: $parent.viewProject">
+                            <h3 class="project-name" data-bind="text: name"></h3>
+                            <p class="project-date" data-bind="text: created_at"></p>
+                        </div>
                         <div class="project-actions">
-                            <a href="<?php echo Uri::create("project/view/{$project->id}"); ?>">表示</a>
-                            <a href="<?php echo Uri::create("project/edit/{$project->id}"); ?>">編集</a>
-                            <a href="<?php echo Uri::create("project/delete/{$project->id}"); ?>" onclick="return confirm('削除してもよろしいですか？');">削除</a>
+                            <button class="btn btn-edit" data-bind="click: $parent.editProject">
+                                編集
+                            </button>
+                            <button class="btn btn-danger" data-bind="click: $parent.deleteProject">
+                                削除
+                            </button>
                         </div>
                     </div>
-                <?php endforeach; ?>
-            <?php else: ?>
-                <p>まだプロジェクトがありません。</p>
-            <?php endif; ?>
+                </div>
+            </div>
         </div>
-
-        <!-- 新規作成ボタン -->
-        <a href="<?php echo Uri::create('project/create'); ?>" class="btn">＋ 新しいプロジェクトを作成</a>
     </div>
 
+    <!-- Knockout.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.1/knockout-min.js"></script>
+    
     <script>
+        // プロジェクトViewModel
+        function ProjectViewModel() {
+            var self = this;
+            
+            // プロジェクトデータ
+            self.projects = ko.observableArray([
+                <?php if (!empty($projects)): ?>
+                    <?php foreach ($projects as $index => $project): ?>
+                        {
+                            id: <?php echo $project->id; ?>,
+                            name: '<?php echo addslashes($project->name); ?>',
+                            created_at: '<?php echo $project->created_at; ?>'
+                        }<?php echo ($index < count($projects) - 1) ? ',' : ''; ?>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            ]);
+            
+            // プロジェクト詳細表示
+            self.viewProject = function(project) {
+                window.location.href = '<?php echo Uri::create('project/view'); ?>/' + project.id;
+            };
+            
+            // プロジェクト編集
+            self.editProject = function(project) {
+                window.location.href = '<?php echo Uri::create('project/edit'); ?>/' + project.id;
+            };
+            
+            // プロジェクト削除
+            self.deleteProject = function(project) {
+                if (confirm('本当に削除しますか？')) {
+                    window.location.href = '<?php echo Uri::create('project/delete'); ?>/' + project.id;
+                }
+            };
+        }
+
+        // ViewModelをバインド
+        var projectViewModel = new ProjectViewModel();
+        ko.applyBindings({ projectViewModel: projectViewModel });
+
+        // ログアウト機能
         function logout() {
             if (confirm('ログアウトしますか？')) {
                 window.location.href = '<?php echo Uri::create('auth/logout'); ?>';
