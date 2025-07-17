@@ -1,11 +1,11 @@
 <?php
 
-
+namespace Fuel\Migrations;
 
 use Fuel\Core\DBUtil;
 
 
-class Create_users_projects_tasks extends Migration
+class Create_users_projects_tasks
 {
 	public function up()
 	{
@@ -14,8 +14,8 @@ class Create_users_projects_tasks extends Migration
 			'id' => array('type' => 'int', 'auto_increment' => true),
 			'username' => array('type' => 'varchar', 'constraint' => 255),
 			'password' => array('type' => 'varchar', 'constraint' => 255),
-			'created_at' => array('type' => 'datetime', 'default' => DBUtil::expr('CURRENT_TIMESTAMP')),
-			'updated_at' => array('type' => 'datetime', 'default' => DBUtil::expr('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP')),
+			'created_at' => array('type' => 'datetime', 'default' => 'CURRENT_TIMESTAMP'),
+            'updated_at' => array('type' => 'datetime', 'default' => 'CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'),
 		), array('id'));
 
 		DBUtil::create_index('users', array('username'), 'username_unique', 'UNIQUE');
@@ -25,8 +25,8 @@ class Create_users_projects_tasks extends Migration
 			'id' => array('type' => 'int', 'auto_increment' => true),
 			'user_id' => array('type' => 'int'),
 			'name' => array('type' => 'varchar', 'constraint' => 255),
-			'created_at' => array('type' => 'datetime', 'default' => DBUtil::expr('CURRENT_TIMESTAMP')),
-			'updated_at' => array('type' => 'datetime', 'default' => DBUtil::expr('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP')),
+			'created_at' => array('type' => 'datetime', 'default' => 'CURRENT_TIMESTAMP'),
+	        'updated_at' => array('type' => 'datetime', 'default' => 'CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'),
 		), array('id'));
 
 		DBUtil::create_foreign_key('projects', array(

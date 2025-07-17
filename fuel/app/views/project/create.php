@@ -180,7 +180,7 @@
         <div class="header">
             <h1 class="title">新しいプロジェクト</h1>
             <div class="user-info">
-                <span class="user-name">こんにちは、<?php echo Html::chars($current_user); ?>さん</span>
+                <span class="user-name">こんにちは、<?php echo htmlspecialchars($current_user, ENT_QUOTES, 'UTF-8'); ?>さん</span>
                 <button class="logout-btn" onclick="logout()">ログアウト</button>
             </div>
         </div>

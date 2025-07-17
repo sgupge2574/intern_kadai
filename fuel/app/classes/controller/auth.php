@@ -21,14 +21,14 @@ class Controller_Auth extends Controller
                 try {
                     $user = Model_User::find('first', array(
                         'where' => array(
-                            'name' => $name,
+                            'username' => $name,
                             'password' => md5($password)
                         )
                     ));
 
                     if ($user) {
-                        Session::set('user_name', $user->name);
-                        Session::set_flash('success', $user->name . 'さん、おかえりなさい！');
+                        Session::set('user_name', $user->username);
+                        Session::set_flash('success', $user->username . 'さん、おかえりなさい！');
                         Response::redirect('project');
                     } else {
                         Session::set_flash('error', 'ユーザー名またはパスワードが間違っています');
@@ -63,25 +63,25 @@ class Controller_Auth extends Controller
                 try {
                     // ユーザー名の重複チェック
                     $existing_user = Model_User::find('first', array(
-                        'where' => array('name' => $name)
+                        'where' => array('username' => $name)
                     ));
 
                     if ($existing_user) {
                         Session::set_flash('error', 'このユーザー名は既に使用されています');
                     } else {
                         $user = Model_User::forge(array(
-                            'name' => $name,
+                            'username' => $name,
                             'password' => md5($password),
                             'created_at' => date('Y-m-d H:i:s')
                         ));
                         $user->save();
 
-                        Session::set('user_name', $user->name);
-                        Session::set_flash('success', $user->name . 'さん、アカウントを作成しました！');
+                        Session::set('user_name', $user->username);
+                        Session::set_flash('success', $user->username . 'さん、アカウントを作成しました！');
                         Response::redirect('project');
                     }
                 } catch (Exception $e) {
-                    Session::set_flash('error', 'データベースエラーが発生しました');
+                    Session::set_flash('error', 'データベース接続エラー: ' . $e->getMessage());
                 }
             } else {
                 Session::set_flash('error', '入力内容を確認してください');
