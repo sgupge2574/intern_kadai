@@ -12,7 +12,6 @@
         <div class="header">
             <h1 class="title">プロジェクト管理</h1>
             <div class="user-info">
-                <span class="user-name">こんにちは
                 <button class="logout-btn" onclick="logout()">ログアウト</button>
             </div>
         </div>
@@ -48,20 +47,22 @@
             </div>
 
             <!-- プロジェクト一覧 -->
-            <div class="project-list" data-bind="visible: projects().length > 0, foreach: projects">
-                <div class="project-item">
-                    <div class="project-content">
-                        <div class="project-info" data-bind="click: $parent.viewProject">
-                            <h3 class="project-name" data-bind="text: name"></h3>
-                            <p class="project-date" data-bind="text: created_at"></p>
-                        </div>
-                        <div class="project-actions">
-                            <button class="btn btn-edit" data-bind="click: $parent.editProject">
-                                編集
-                            </button>
-                            <button class="btn btn-danger" data-bind="click: $parent.deleteProject">
-                                削除
-                            </button>
+            <div data-bind="visible: projects().length > 0">
+                <div class="project-list" data-bind="foreach: projects">
+                    <div class="project-item">
+                        <div class="project-content">
+                            <div class="project-info" data-bind="click: $parent.viewProject">
+                                <h3 class="project-name" data-bind="text: name"></h3>
+                                <p class="project-date" data-bind="text: created_at"></p>
+                            </div>
+                            <div class="project-actions">
+                                <button class="btn btn-edit" data-bind="click: $parent.editProject">
+                                    編集
+                                </button>
+                                <button class="btn btn-danger" data-bind="click: $parent.deleteProject">
+                                    削除
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -70,54 +71,53 @@
     </div>
 
     <!-- Knockout.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.1/knockout-min.js"></script>
+    <script src="/assets/js/knockout-min.js"></script>
     
+
     <script>
-        // プロジェクトViewModel
-        function ProjectViewModel() {
-            var self = this;
-            
-            // プロジェクトデータ
-            self.projects = ko.observableArray([
-                <?php if (!empty($projects)): ?>
-                    <?php foreach ($projects as $index => $project): ?>
-                        {
-                            id: <?php echo $project->id; ?>,
-                            name: '<?php echo addslashes($project->name); ?>',
-                            created_at: '<?php echo $project->created_at; ?>'
-                        }<?php echo ($index < count($projects) - 1) ? ',' : ''; ?>
-                    <?php endforeach; ?>
-                <?php endif; ?>
-            ]);
-            
-            // プロジェクト詳細表示
-            self.viewProject = function(project) {
-                window.location.href = '<?php echo Uri::create('project/view'); ?>/' + project.id;
-            };
-            
-            // プロジェクト編集
-            self.editProject = function(project) {
-                window.location.href = '<?php echo Uri::create('project/edit'); ?>/' + project.id;
-            };
-            
-            // プロジェクト削除
-            self.deleteProject = function(project) {
-                if (confirm('本当に削除しますか？')) {
-                    window.location.href = '<?php echo Uri::create('project/delete'); ?>/' + project.id;
+    function ProjectViewModel() {
+        var self = this;
+
+        // PHPからJS用データを生成
+        self.projects = ko.observableArray([
+            <?php
+            if (!empty($projects)) {
+                $js_projects = [];
+                foreach ($projects as $p) {
+                    $js_projects[] = sprintf(
+                        "{id: %d, name: '%s', created_at: '%s'}",
+                        $p->id,
+                        addslashes($p->name),
+                        $p->created_at
+                    );
                 }
-            };
-        }
-
-        // ViewModelをバインド
-        var projectViewModel = new ProjectViewModel();
-        ko.applyBindings({ projectViewModel: projectViewModel });
-
-        // ログアウト機能
-        function logout() {
-            if (confirm('ログアウトしますか？')) {
-                window.location.href = '<?php echo Uri::create('auth/logout'); ?>';
+                echo implode(",\n", $js_projects);
             }
+            ?>
+        ]);
+
+        self.viewProject = function(project) {
+            window.location.href = '<?php echo Uri::create('project/view'); ?>/' + project.id;
+        };
+        self.editProject = function(project) {
+            window.location.href = '<?php echo Uri::create('project/edit'); ?>/' + project.id;
+        };
+        self.deleteProject = function(project) {
+            if (confirm('本当に削除しますか？')) {
+                window.location.href = '<?php echo Uri::create('project/delete'); ?>/' + project.id;
+            }
+        };
+    }
+
+    var projectViewModel = new ProjectViewModel();
+    ko.applyBindings({ projectViewModel: projectViewModel });
+
+    function logout() {
+        if (confirm('ログアウトしますか？')) {
+            window.location.href = '<?php echo Uri::create('auth/logout'); ?>';
         }
-    </script>
+    }
+</script>
+
 </body>
 </html>

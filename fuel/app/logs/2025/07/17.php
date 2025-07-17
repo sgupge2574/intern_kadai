@@ -185,3 +185,94 @@ WARNING - 2025-07-17 17:33:41 --> Fuel\Core\Fuel::init - The configured locale e
 WARNING - 2025-07-17 17:33:44 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
 WARNING - 2025-07-17 17:33:50 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
 WARNING - 2025-07-17 17:33:51 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2025-07-17 19:24:47 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2025-07-17 19:31:20 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2025-07-17 19:31:29 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2025-07-17 19:31:34 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2025-07-17 19:31:35 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2025-07-17 19:34:40 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+ERROR - 2025-07-17 19:34:41 --> Fatal Error - Method Fuel\Core\View::__toString() must not throw an exception, caught Error: Class 'Auth' not found in /var/www/html/my_fuel_project/fuel/core/classes/response.php on line 0
+WARNING - 2025-07-17 19:34:56 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2025-07-17 19:40:40 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2025-07-17 23:04:38 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2025-07-17 23:04:39 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2025-07-17 23:04:47 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2025-07-17 23:04:48 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2025-07-17 23:08:32 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2025-07-17 23:08:42 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2025-07-17 23:08:43 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2025-07-17 23:08:53 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2025-07-17 23:08:54 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2025-07-17 23:10:40 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2025-07-17 23:11:15 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+ERROR - 2025-07-17 23:11:15 --> Error - Could not find asset: bootstrap.css in /var/www/html/my_fuel_project/fuel/core/classes/asset/instance.php on line 413
+WARNING - 2025-07-17 23:18:00 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2025-07-17 23:18:27 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+ERROR - 2025-07-17 23:18:27 --> Error - Could not find asset: bootstrap.css in /var/www/html/my_fuel_project/fuel/core/classes/asset/instance.php on line 413
+WARNING - 2025-07-17 23:20:17 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2025-07-17 23:20:18 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+ERROR - 2025-07-17 23:20:18 --> Error - Could not find asset: bootstrap.css in /var/www/html/my_fuel_project/fuel/core/classes/asset/instance.php on line 413
+WARNING - 2025-07-17 23:20:45 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2025-07-17 23:20:46 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+ERROR - 2025-07-17 23:20:46 --> Error - Could not find asset: bootstrap.css in /var/www/html/my_fuel_project/fuel/core/classes/asset/instance.php on line 413
+WARNING - 2025-07-17 23:23:58 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2025-07-17 23:23:59 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+ERROR - 2025-07-17 23:23:59 --> Error - Could not find asset: bootstrap.css in /var/www/html/my_fuel_project/fuel/core/classes/asset/instance.php on line 413
+WARNING - 2025-07-17 23:33:11 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2025-07-17 23:33:12 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+ERROR - 2025-07-17 23:33:12 --> Error - Could not find asset: bootstrap.css in /var/www/html/my_fuel_project/fuel/core/classes/asset/instance.php on line 413
+WARNING - 2025-07-17 23:36:05 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2025-07-17 23:36:06 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+ERROR - 2025-07-17 23:36:07 --> Error - Could not find asset: bootstrap.css in /var/www/html/my_fuel_project/fuel/core/classes/asset/instance.php on line 413
+WARNING - 2025-07-17 23:36:58 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2025-07-17 23:36:59 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2025-07-17 23:36:59 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+ERROR - 2025-07-17 23:36:59 --> Error - Could not find asset: bootstrap.css in /var/www/html/my_fuel_project/fuel/core/classes/asset/instance.php on line 413
+ERROR - 2025-07-17 23:36:59 --> Error - Could not find asset: bootstrap.css in /var/www/html/my_fuel_project/fuel/core/classes/asset/instance.php on line 413
+WARNING - 2025-07-17 23:39:06 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2025-07-17 23:39:07 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+ERROR - 2025-07-17 23:39:07 --> Error - Could not find asset: bootstrap.css in /var/www/html/my_fuel_project/fuel/core/classes/asset/instance.php on line 413
+WARNING - 2025-07-17 23:40:01 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2025-07-17 23:40:02 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2025-07-17 23:41:43 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2025-07-17 23:41:49 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2025-07-17 23:41:50 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2025-07-17 23:43:27 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2025-07-17 23:43:29 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+ERROR - 2025-07-17 23:43:29 --> Fatal Error - Method Fuel\Core\View::__toString() must not throw an exception, caught Error: Call to undefined method Fuel\Core\Html::chars() in /var/www/html/my_fuel_project/fuel/core/classes/response.php on line 0
+WARNING - 2025-07-17 23:44:26 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+ERROR - 2025-07-17 23:44:26 --> Fatal Error - Method Fuel\Core\View::__toString() must not throw an exception, caught Error: Call to undefined method Fuel\Core\Html::chars() in /var/www/html/my_fuel_project/fuel/core/classes/response.php on line 0
+WARNING - 2025-07-17 23:44:30 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+ERROR - 2025-07-17 23:44:31 --> Fatal Error - Method Fuel\Core\View::__toString() must not throw an exception, caught Error: Call to undefined method Fuel\Core\Html::chars() in /var/www/html/my_fuel_project/fuel/core/classes/response.php on line 0
+WARNING - 2025-07-17 23:48:38 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2025-07-17 23:48:44 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2025-07-17 23:48:50 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2025-07-17 23:48:55 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2025-07-17 23:49:00 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2025-07-17 23:49:01 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2025-07-17 23:49:04 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2025-07-17 23:49:05 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2025-07-17 23:49:08 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2025-07-17 23:49:08 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2025-07-17 23:49:11 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2025-07-17 23:49:15 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2025-07-17 23:49:15 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2025-07-17 23:49:51 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2025-07-17 23:49:58 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+ERROR - 2025-07-17 23:49:59 --> Error - The requested view could not be found: task/create.php in /var/www/html/my_fuel_project/fuel/core/classes/view.php on line 440
+WARNING - 2025-07-17 23:50:49 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+ERROR - 2025-07-17 23:50:49 --> Error - The requested view could not be found: task/create.php in /var/www/html/my_fuel_project/fuel/core/classes/view.php on line 440
+WARNING - 2025-07-17 23:51:05 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+ERROR - 2025-07-17 23:51:05 --> Fatal Error - Method Fuel\Core\View::__toString() must not throw an exception, caught Error: Call to undefined method Fuel\Core\Html::chars() in /var/www/html/my_fuel_project/fuel/core/classes/response.php on line 0
+WARNING - 2025-07-17 23:52:41 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2025-07-17 23:53:04 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2025-07-17 23:53:08 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2025-07-17 23:53:29 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+ERROR - 2025-07-17 23:53:29 --> Fatal Error - Method Fuel\Core\View::__toString() must not throw an exception, caught Error: Call to undefined method Fuel\Core\Html::chars() in /var/www/html/my_fuel_project/fuel/core/classes/response.php on line 0
+WARNING - 2025-07-17 23:54:35 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2025-07-17 23:54:38 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2025-07-17 23:54:41 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2025-07-17 23:54:45 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2025-07-17 23:54:46 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2025-07-17 23:54:54 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
+WARNING - 2025-07-17 23:54:55 --> Fuel\Core\Fuel::init - The configured locale en_US is not installed on your system.
