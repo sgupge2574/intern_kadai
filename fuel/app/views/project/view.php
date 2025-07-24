@@ -66,7 +66,7 @@
                                     <input type="checkbox" class="task-status-checkbox" data-bind="checked: status, click: $parent.toggleStatus">
                                 </div>
                                 <div class="task-details">
-                                    <h3 class="project-name" data-bind="text: name, css: { 'task-completed': status() == 1 }"></h3>
+<h3 class="project-name" data-bind="text: name, css: { 'task-completed': status() == 1 }, click: $parent.toggleStatus"></h3>
                                     <p class="project-date" data-bind="text: due_date, visible: due_date"></p>
                                 </div>
                             </div>
@@ -91,6 +91,7 @@
     <script>
     function TaskViewModel() {
         var self = this;
+        self.isToggling = ko.observable(false);
         
         // PHPからJS用データを生成（index.phpと同じ方法）
         self.tasks = ko.observableArray([
@@ -134,21 +135,34 @@
 
         // タスク状態切り替え
         self.toggleStatus = function(task) {
+            if (self.isToggling()) return;
+            self.isToggling(true);
+
+            var prevStatus = task.status();
+            var newStatus = prevStatus == 1 ? 0 : 1;
+            task.status(newStatus); // UI即反映
+
             fetch('<?php echo Uri::create('task/toggle_status'); ?>/' + task.id, {
-                method: 'POST'
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ status: newStatus })
             })
             .then(function(response) {
                 return response.json();
             })
             .then(function(data) {
-                if (data.success) {
-                    task.status(data.status);
+                if (!data.success) {
+                    task.status(prevStatus); // サーバーエラー時のみ元に戻す
+                } else {
+                    task.status(data.status); // サーバーの値で上書き
                 }
+                self.isToggling(false);
             })
             .catch(function(error) {
+                task.status(prevStatus); // 通信エラー時も元に戻す
                 console.error('Error:', error);
+                self.isToggling(false);
             });
-            
             return true;
         };
 

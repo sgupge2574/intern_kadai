@@ -187,7 +187,6 @@
         <div class="header">
             <h1 class="title">タスク編集</h1>
             <div class="user-info">
-                <span class="user-name">こんにちは、<?php echo Html::chars($current_user); ?>さん</span>
                 <button class="logout-btn" onclick="logout()">ログアウト</button>
             </div>
         </div>
@@ -212,13 +211,12 @@
                     ← タスクを編集
                 </a>
             </div>
-            
-            <div class="project-name"><?php echo Html::chars($project->name); ?></div>
+            <div class="project-name"><?php echo htmlspecialchars($project->name, ENT_QUOTES, 'UTF-8'); ?></div>
             
             <form method="post" action="<?php echo Uri::create('task/edit/'.$task->id); ?>">
                 <div class="form-group">
                     <label for="name" class="form-label">タスク名</label>
-                    <input type="text" id="name" name="name" class="form-input" value="<?php echo Html::chars($task->name); ?>" placeholder="タスク名を入力してください" required>
+                    <input type="text" id="name" name="name" class="form-input" value="<?php echo htmlspecialchars($task->name, ENT_QUOTES, 'UTF-8'); ?>" placeholder="タスク名を入力してください" required>
                 </div>
                 
                 <div class="form-group">
