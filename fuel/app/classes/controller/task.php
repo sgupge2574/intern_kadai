@@ -27,10 +27,16 @@ class Controller_Task extends Controller
 
             if ($val->run()) {
                 try {
+                    // due_dateを取得し、nullまたは空文字なら今日の日付をセット
+                    $due_date = Input::post('due_date');
+                    if (empty($due_date)) {
+                        $due_date = date('Y-m-d');
+                    }
+
                     $task = Model_Task::forge(array(
                         'project_id' => $project_id,
                         'name' => Input::post('name'),
-                        'due_date' => Input::post('due_date') ?: null,
+                        'due_date' => $due_date,
                         'status' => 0,
                         'created_at' => date('Y-m-d H:i:s')
                     ));
@@ -74,7 +80,11 @@ class Controller_Task extends Controller
             if ($val->run()) {
                 try {
                     $task->name = Input::post('name');
-                    $task->due_date = Input::post('due_date') ?: null;
+                    $due_date = Input::post('due_date');
+                    if (empty($due_date)) {
+                        $due_date = date('Y-m-d');
+                    }
+                    $task->due_date = $due_date;
                     $task->save();
                     
                     Session::set_flash('success', 'タスクを更新しました');
