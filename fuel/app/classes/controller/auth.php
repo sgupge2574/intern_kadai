@@ -19,16 +19,17 @@ class Controller_Auth extends Controller
 
             if ($val->run()) {
                 try {
-                    $user = Model_User::find('first', array(
-                        'where' => array(
-                            'username' => $name,
-                            'password' => md5($password)
-                        )
-                    ));
+                    $result = DB::select('*')
+                        ->from('users')
+                        ->where('username', $name)
+                        ->where('password', md5($password))
+                        ->execute();
 
-                    if ($user) {
-                        Session::set('user_id', $user->id);
-                        Session::set_flash('success', $user->username . 'さん、おかえりなさい！');
+                    if ($result->count() > 0) {
+                        $user = $result->current();
+                        Session::set('user_id', $user['id']);
+                        Session::set('username', $user['username']);
+                        Session::set_flash('success', $user['username'] . 'さん、おかえりなさい！');
                         Response::redirect('project');
                     } else {
                         Session::set_flash('error', 'ユーザー名またはパスワードが間違っています');
@@ -62,22 +63,28 @@ class Controller_Auth extends Controller
             if ($val->run()) {
                 try {
                     // ユーザー名の重複チェック
-                    $existing_user = Model_User::find('first', array(
-                        'where' => array('username' => $name)
-                    ));
+                    $existing = DB::select('id')
+                        ->from('users')
+                        ->where('username', $name)
+                        ->execute();
 
-                    if ($existing_user) {
+                    if ($existing->count() > 0) {
                         Session::set_flash('error', 'このユーザー名は既に使用されています');
                     } else {
-                        $user = Model_User::forge(array(
-                            'username' => $name,
-                            'password' => md5($password),
-                            'created_at' => date('Y-m-d H:i:s')
-                        ));
-                        $user->save();
+                        // 新規ユーザー作成
+                        $result = DB::insert('users')
+                            ->set(array(
+                                'username' => $name,
+                                'password' => md5($password),
+                                'created_at' => date('Y-m-d H:i:s')
+                            ))
+                            ->execute();
 
-                        Session::set('user_id', $user->username);
-                        Session::set_flash('success', $user->username . 'さん、アカウントを作成しました！');
+                        $user_id = $result[0]; // 挿入されたIDを取得
+
+                        Session::set('user_id', $user_id);
+                        Session::set('username', $name);
+                        Session::set_flash('success', $name . 'さん、アカウントを作成しました！');
                         Response::redirect('project');
                     }
                 } catch (Exception $e) {
@@ -94,6 +101,7 @@ class Controller_Auth extends Controller
     public function action_logout()
     {
         Session::delete('user_id');
+        Session::delete('username');
         Session::set_flash('success', 'ログアウトしました');
         Response::redirect('auth/login');
     }
