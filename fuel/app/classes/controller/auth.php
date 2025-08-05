@@ -14,7 +14,7 @@ class Controller_Auth extends Controller
     {
         // 既にログイン済みの場合はプロジェクト一覧にリダイレクト
         if (Session::get('user_id')) {
-            Response::redirect('project');
+            return Response::redirect('project');
         }
 
         // POSTリクエストの場合（ログインフォーム送信時）
@@ -51,7 +51,7 @@ class Controller_Auth extends Controller
                         Session::set_flash('success', $user['username'] . 'さん、おかえりなさい！');
                         
                         // プロジェクト一覧にリダイレクト
-                        Response::redirect('project');
+                        return Response::redirect('project');
                     } else {
                         // 認証失敗時のエラーメッセージ
                         Session::set_flash('error', 'ユーザー名またはパスワードが間違っています');
@@ -78,7 +78,7 @@ class Controller_Auth extends Controller
     {
         // 既にログイン済みの場合はプロジェクト一覧にリダイレクト
         if (Session::get('user_id')) {
-            Response::redirect('project');
+            return Response::redirect('project');
         }
 
         // POSTリクエストの場合（登録フォーム送信時）
@@ -130,7 +130,7 @@ class Controller_Auth extends Controller
                         Session::set_flash('success', $name . 'さん、アカウントを作成しました！');
                         
                         // プロジェクト一覧にリダイレクト
-                        Response::redirect('project');
+                        return Response::redirect('project');
                     }
                 } catch (Exception $e) {
                     // データベースエラー時の処理
@@ -160,6 +160,6 @@ class Controller_Auth extends Controller
         Session::set_flash('success', 'ログアウトしました');
         
         // ログイン画面にリダイレクト
-        Response::redirect('auth/login');
+        return Response::redirect('auth/login');
     }
 }
