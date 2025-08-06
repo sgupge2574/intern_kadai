@@ -1,50 +1,19 @@
-# インターン課題環境構築手順
+# プロジェクト別タスク管理アプリ
 
-## Dockerの基本知識
-Dockerの基本的な概念については、以下のリンクを参考にしてください：
-- [Docker入門（1）](https://qiita.com/Sicut_study/items/4f301d000ecee98e78c9)
-- [Docker入門（2）](https://qiita.com/takusan64/items/4d622ce1858c426719c7)
+## 概要
+プロジェクトごとにタスクを管理できるWebアプリケーションです。タスクの登録・編集・削除・完了処理などをプロジェクト単位で行えます。
 
-## セットアップ手順
+## 要件定義・DB設計
+以下のGoogleスプレッドシートにて管理しています：  
+👉 [要件定義・DB設計シート](https://docs.google.com/spreadsheets/d/1eHSrtgqBGOiVpyDpcuFzkPIveFz38v_wnqF6PER7Uq0/edit?usp=drive_link)
 
-1. **リポジトリをクローン**
-   ```bash
-   git clone <リポジトリURL>
-   ```
+## UI設計書
+以下のGoogleドキュメントにてUI設計をまとめています：  
+👉 [UI設計書](https://docs.google.com/document/d/1NCiW73V5i10iM-ekS1Y0I1IlzBT83pUF/edit?usp=drive_link&ouid=101181998510400317301&rtpof=true&sd=true)
 
-2. **dockerディレクトリに移動**
-   ```bash
-   cd docker
-   ```
-
-3. **データベース名の設定**
-   `docker-compose.yml` 内の `db` サービスにある `MYSQL_DATABASE` の値を、各自任意のデータベース名に設定してください。
-   
-   例:
-   ```yaml
-   environment:
-     MYSQL_ROOT_PASSWORD: root
-     MYSQL_DATABASE: <your_database_name>  # 任意のデータベース名を指定
-   ```
-
-4. **Dockerイメージのビルド**
-   ```bash
-   docker-compose build
-   ```
-
-5. **コンテナの起動**
-   ```bash
-   docker-compose up -d
-   ```
-6. **ブラウザからlocalhostにアクセス**
-
-## PHP周りのバージョン
-- **PHP**: 7.3
-- **FuelPHP**: 1.8
-
-## ログについて
-- **アクセスログ**: Dockerのコンテナのログ
-- **FuelPHPのエラーログ**: /var/www/html/intern_kadai/fuel/app/logs/
-  - 年月日ごとにログが管理されている
-  - tail -f {見たいログファイル}でログを出力
+## 使用技術
+- **バックエンド**: FuelPHP  
+- **フロントエンド**: Knockout.js  
+- **データベース**: MySQL  
+- **開発環境**: Docker
 
