@@ -14,12 +14,9 @@ class Controller_Project extends Controller
     {
         // 親クラスのbefore()メソッドを実行
         parent::before();
-        
-        // 認証不要のアクション名一覧（ログイン・登録画面）
-        $no_auth = array('auth/login', 'auth/register');
-        
-        // 現在のURIが認証不要リストにない かつ ユーザーIDがセッションにない場合
-        if (!in_array(Uri::string(), $no_auth) && !Session::get('user_id')) {
+
+        // ユーザーIDがセッションにない場合
+        if (!Session::get('user_id')) {
             // ログイン画面にリダイレクト
             return Response::redirec('auth/login');
         }
