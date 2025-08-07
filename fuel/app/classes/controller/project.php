@@ -18,7 +18,7 @@ class Controller_Project extends Controller
         // ユーザーIDがセッションにない場合
         if (!Session::get('user_id')) {
             // ログイン画面にリダイレクト
-            return Response::redirec('auth/login');
+            return Response::redirect('auth/login');
         }
     }
 
@@ -102,7 +102,7 @@ class Controller_Project extends Controller
                     Session::set_flash('success', 'プロジェクトを追加しました');
                     
                     // プロジェクト一覧にリダイレクト
-                    return Response::redirec('project');
+                    return Response::redirect('project');
                     
                 } catch (Exception $e) {
                     // データベースエラー時の処理
@@ -139,7 +139,7 @@ class Controller_Project extends Controller
             // プロジェクトが見つからない場合
             if ($result->count() == 0) {
                 Session::set_flash('error', 'プロジェクトが見つかりません');
-                return Response::redirec('project');
+                return Response::redirect('project');
             }
             
             $project_data = $result->current();
@@ -164,7 +164,7 @@ class Controller_Project extends Controller
                         Session::set_flash('success', 'プロジェクトを更新しました');
                         
                         // プロジェクト一覧にリダイレクト
-                        return Response::redirec('project');
+                        return Response::redirect('project');
                         
                     } catch (Exception $e) {
                         // データベースエラー時の処理
@@ -193,7 +193,7 @@ class Controller_Project extends Controller
         } catch (Exception $e) {
             // データベースエラー時の処理
             Session::set_flash('error', 'データベース接続エラー: ' . $e->getMessage());
-            return Response::redirec('project');
+            return Response::redirect('project');
         }
     }
 
@@ -239,7 +239,7 @@ class Controller_Project extends Controller
         }
         
         // プロジェクト一覧にリダイレクト
-        return Response::redirec('project');
+        return Response::redirect('project');
     }
 
     /**
@@ -261,7 +261,7 @@ class Controller_Project extends Controller
             // プロジェクトが見つからない場合
             if ($project_result->count() == 0) {
                 Session::set_flash('error', 'プロジェクトが見つかりません');
-                return Response::redirec('project');
+                return Response::redirect('project');
             }
             
             $project_data = $project_result->current();
@@ -306,7 +306,7 @@ class Controller_Project extends Controller
         } catch (Exception $e) {
             // データベースエラー時の処理
             Session::set_flash('error', 'データベース接続エラー: ' . $e->getMessage());
-            return Response::redirec('project');
+            return Response::redirect('project');
         }
     }
 }

@@ -8,7 +8,7 @@ class Controller_Task extends Controller
         
         // ログインチェック
         if (!Session::get('user_id')) {
-            return Response::redirec('auth/login');
+            return Response::redirect('auth/login');
         }
     }
 
@@ -24,7 +24,7 @@ class Controller_Task extends Controller
 
             if ($project_result->count() == 0) {
                 Session::set_flash('error', 'プロジェクトが見つかりません');
-                return Response::redirec('project');
+                return Response::redirect('project');
             }
 
             $project_data = $project_result->current();
@@ -52,7 +52,7 @@ class Controller_Task extends Controller
                             ->execute();
                         
                         Session::set_flash('success', 'タスクを追加しました');
-                        return Response::redirec('project/view/'.$project_id);
+                        return Response::redirect('project/view/'.$project_id);
                     } catch (Exception $e) {
                         Session::set_flash('error', 'データベース接続エラー: ' . $e->getMessage());
                     }
@@ -76,7 +76,7 @@ class Controller_Task extends Controller
 
         } catch (Exception $e) {
             Session::set_flash('error', 'データベース接続エラー: ' . $e->getMessage());
-            return Response::redirec('project');
+            return Response::redirect('project');
         }
     }
 
@@ -91,7 +91,7 @@ class Controller_Task extends Controller
 
             if ($task_result->count() == 0) {
                 Session::set_flash('error', 'タスクが見つかりません');
-                return Response::redirec('project');
+                return Response::redirect('project');
             }
 
             $task_data = $task_result->current();
@@ -105,7 +105,7 @@ class Controller_Task extends Controller
 
             if ($project_result->count() == 0) {
                 Session::set_flash('error', 'アクセス権限がありません');
-                return Response::redirec('project');
+                return Response::redirect('project');
             }
 
             $project_data = $project_result->current();
@@ -130,7 +130,7 @@ class Controller_Task extends Controller
                             ->execute();
                         
                         Session::set_flash('success', 'タスクを更新しました');
-                        return Response::redirec('project/view/'.$task_data['project_id']);
+                        return Response::redirect('project/view/'.$task_data['project_id']);
                     } catch (Exception $e) {
                         Session::set_flash('error', 'データベース接続エラー: ' . $e->getMessage());
                     }
@@ -164,7 +164,7 @@ class Controller_Task extends Controller
 
         } catch (Exception $e) {
             Session::set_flash('error', 'データベース接続エラー: ' . $e->getMessage());
-            return Response::redirec('project');
+            return Response::redirect('project');
         }
     }
 
@@ -179,7 +179,7 @@ class Controller_Task extends Controller
 
             if ($task_result->count() == 0) {
                 Session::set_flash('error', 'タスクが見つかりません');
-                return Response::redirec('project');
+                return Response::redirect('project');
             }
 
             $task_data = $task_result->current();
@@ -193,7 +193,7 @@ class Controller_Task extends Controller
 
             if ($project_result->count() == 0) {
                 Session::set_flash('error', 'アクセス権限がありません');
-                return Response::redirec('project');
+                return Response::redirect('project');
             }
 
             $project_id = $task_data['project_id'];
@@ -204,11 +204,11 @@ class Controller_Task extends Controller
                 ->execute();
 
             Session::set_flash('success', 'タスクを削除しました');
-            return Response::redirec('project/view/'.$project_id);
+            return Response::redirect('project/view/'.$project_id);
             
         } catch (Exception $e) {
             Session::set_flash('error', '削除に失敗しました: ' . $e->getMessage());
-            return Response::redirec('project');
+            return Response::redirect('project');
         }
     }
 
