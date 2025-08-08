@@ -33,11 +33,7 @@ class Controller_Project extends Controller
             $user_id = Session::get('user_id');
             
             // データベースからユーザーのプロジェクトを取得（作成日時の降順）
-            $result = DB::select('*')
-                ->from('projects')
-                ->where('user_id', $user_id)
-                ->order_by('created_at', 'desc')
-                ->execute();
+            $result = Model_Project::find_by_user_id($user_id);
             
             // 結果を配列として取得
             $projects = $result->as_array();
@@ -90,13 +86,8 @@ class Controller_Project extends Controller
             if ($val->run()) {
                 try {
                     // データベースに新規プロジェクトを挿入
-                    DB::insert('projects')
-                        ->set(array(
-                            'name' => Input::post('name'),
-                            'user_id' => Session::get('user_id'),
-                            'created_at' => date('Y-m-d H:i:s')
-                        ))
-                        ->execute();
+                    Model_Project::create_project(Input::post('name'), Session::get('user_id'));
+
                     
                     // 成功メッセージを設定
                     Session::set_flash('success', 'プロジェクトを追加しました');
@@ -130,11 +121,7 @@ class Controller_Project extends Controller
     {
         try {
             // 指定されたIDのプロジェクトを取得（ユーザー権限チェック付き）
-            $result = DB::select('*')
-                ->from('projects')
-                ->where('id', $id)
-                ->where('user_id', Session::get('user_id'))  // 他ユーザーのプロジェクトは編集不可
-                ->execute();
+            $result = Model_Project::find_by_id_and_user($id, Session::get('user_id'));
             
             // プロジェクトが見つからない場合
             if ($result->count() == 0) {
@@ -154,11 +141,8 @@ class Controller_Project extends Controller
                 if ($val->run()) {
                     try {
                         // データベースのプロジェクト情報を更新
-                        DB::update('projects')
-                            ->set(array('name' => Input::post('name')))
-                            ->where('id', $id)
-                            ->where('user_id', Session::get('user_id'))  // セキュリティ確保
-                            ->execute();
+                        Model_Project::update_project_name($id, Session::get('user_id'), Input::post('name'));
+
                         
                         // 成功メッセージを設定
                         Session::set_flash('success', 'プロジェクトを更新しました');
@@ -207,24 +191,15 @@ class Controller_Project extends Controller
     {
         try {
             // プロジェクトの存在確認（ユーザー権限チェック付き）
-            $result = DB::select('id')
-                ->from('projects')
-                ->where('id', $id)
-                ->where('user_id', Session::get('user_id'))  // 他ユーザーのプロジェクトは削除不可
-                ->execute();
+            $result = Model_Project::find_by_id_and_user($id, Session::get('user_id'));
             
             // プロジェクトが存在する場合
             if ($result->count() > 0) {
                 // 関連するタスクを先に削除（外部キー制約対応）
-                DB::delete('tasks')
-                    ->where('project_id', $id)
-                    ->execute();
+                Model_Task::delete_by_project_id($id);
                 
                 // プロジェクトを削除
-                DB::delete('projects')
-                    ->where('id', $id)
-                    ->where('user_id', Session::get('user_id'))  // セキュリティ確保
-                    ->execute();
+                Model_Project::delete_by_id_and_user($id, Session::get('user_id'));
                 
                 // 成功メッセージを設定
                 Session::set_flash('success', 'プロジェクトを削除しました');
@@ -252,11 +227,7 @@ class Controller_Project extends Controller
     {
         try {
             // プロジェクトの取得（ユーザー権限チェック付き）
-            $project_result = DB::select('*')
-                ->from('projects')
-                ->where('id', $id)
-                ->where('user_id', Session::get('user_id'))  // 他ユーザーのプロジェクトは閲覧不可
-                ->execute();
+            $project_result = Model_Project::find_by_id_and_user($id, Session::get('user_id'));
             
             // プロジェクトが見つからない場合
             if ($project_result->count() == 0) {
@@ -264,14 +235,8 @@ class Controller_Project extends Controller
                 return Response::redirect('project');
             }
             
-            $project_data = $project_result->current();
-            
             // 関連するタスクの取得（作成日時の昇順）
-            $tasks_result = DB::select('*')
-                ->from('tasks')
-                ->where('project_id', $id)
-                ->order_by('created_at', 'asc')
-                ->execute();
+            $tasks_result = Model_Task::find_by_project_id_ordered($id);
             
             $tasks_data = $tasks_result->as_array();
 

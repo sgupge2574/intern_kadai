@@ -49,4 +49,13 @@ class Model_Task extends \Model
             ->where('id', $id)
             ->execute();
     }
+
+        public static function find_by_project_id_ordered($project_id)
+    {
+        return DB::select('*')
+            ->from('tasks')
+            ->where('project_id', $project_id)
+            ->order_by('created_at', 'asc')
+            ->execute()
+    }
 }

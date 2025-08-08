@@ -32,15 +32,10 @@ class Controller_Auth extends Controller
             if ($val->run()) {
                 try {
                     // データベースからユーザー情報を検索
-                    // 注意: 実際のプロダクションではmd5ではなく、より安全なハッシュ化を使用すべき
-                    $result = DB::select('*')
-                        ->from('users')
-                        ->where('username', $name)
-                        ->where('password', md5($password))
-                        ->execute();
+                    $result = Model_User::authenticate($name, $password);
                     
                     // ユーザーが見つかった場合
-                    if ($result->count() > 0) {
+                    if ($result) {
                         $user = $result->current();
                         
                         // セッションにユーザー情報を保存
@@ -100,24 +95,16 @@ class Controller_Auth extends Controller
             if ($val->run()) {
                 try {
                     // ユーザー名の重複チェック
-                    $existing = DB::select('id')
-                        ->from('users')
-                        ->where('username', $name)
-                        ->execute();
+                    $existing = Model_User::exists_by_username($name)
                     
                     // 既に同じユーザー名が存在する場合
-                    if ($existing->count() > 0) {
+                    if ($existing) {
                         Session::set_flash('error', 'このユーザー名は既に使用されています');
                     } else {
                         // 新規ユーザーをデータベースに挿入
                         // 注意: 実際のプロダクションではmd5ではなく、より安全なハッシュ化を使用すべき
-                        $result = DB::insert('users')
-                            ->set(array(
-                                'username' => $name,
-                                'password' => md5($password),
-                                'created_at' => date('Y-m-d H:i:s')
-                            ))
-                            ->execute();
+                        Model_User::create_user($name, $password);
+
                         
                         // 挿入されたユーザーIDを取得
                         $user_id = $result[0];
