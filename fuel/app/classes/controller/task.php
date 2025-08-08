@@ -148,10 +148,7 @@ class Controller_Task extends Controller
     {
         try {
             // タスクの取得
-            $task_result = DB::select('*')
-                ->from('tasks')
-                ->where('id', $id)
-                ->execute();
+            $task_result = Model_Task::find_by_id($id);
 
             if ($task_result->count() == 0) {
                 Session::set_flash('error', 'タスクが見つかりません');
@@ -161,11 +158,7 @@ class Controller_Task extends Controller
             $task_data = $task_result->current();
 
             // タスクの所有者確認
-            $project_result = DB::select('id')
-                ->from('projects')
-                ->where('id', $task_data['project_id'])
-                ->where('user_id', Session::get('user_id'))
-                ->execute();
+            $project_result = Model_Project::find_by_id_and_user($task_data['project_id'], Session::get('user_id'));
 
             if ($project_result->count() == 0) {
                 Session::set_flash('error', 'アクセス権限がありません');
@@ -175,9 +168,7 @@ class Controller_Task extends Controller
             $project_id = $task_data['project_id'];
 
             // タスクを削除
-            DB::delete('tasks')
-                ->where('id', $id)
-                ->execute();
+            Model_Task::delete_by_id($id);
 
             Session::set_flash('success', 'タスクを削除しました');
             return Response::redirect('project/view/'.$project_id);
@@ -192,10 +183,7 @@ class Controller_Task extends Controller
     {
         try {
             // タスクの取得
-            $task_result = DB::select('*')
-                ->from('tasks')
-                ->where('id', $id)
-                ->execute();
+            $task_result = Model_Task::find_by_id($id);
 
             if ($task_result->count() == 0) {
                 return Response::forge(json_encode(array('success' => false)), 404);
@@ -204,11 +192,7 @@ class Controller_Task extends Controller
             $task_data = $task_result->current();
 
             // タスクの所有者確認
-            $project_result = DB::select('id')
-                ->from('projects')
-                ->where('id', $task_data['project_id'])
-                ->where('user_id', Session::get('user_id'))
-                ->execute();
+            $project_result = Model_Project::find_by_id_and_user($task_data['project_id'], Session::get('user_id'));
 
             if ($project_result->count() == 0) {
                 return Response::forge(json_encode(array('success' => false)), 403);
@@ -217,10 +201,8 @@ class Controller_Task extends Controller
             // ステータスを切り替え
             $new_status = $task_data['status'] ? 0 : 1;
 
-            DB::update('tasks')
-                ->set(array('status' => $new_status))
-                ->where('id', $id)
-                ->execute();
+            Model_Task::update_status($id, $new_status);
+
             
             return Response::forge(json_encode(array(
                 'success' => true,

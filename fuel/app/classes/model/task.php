@@ -34,4 +34,19 @@ class Model_Task extends \Model
             ->where('id', $id)
             ->execute();
     }
+
+        public static function delete_by_id($id)
+    {
+        return DB::delete('tasks')
+            ->where('id', $id)
+            ->execute();
+    }
+
+     public static function update_status($id, $new_status)
+    {
+        return DB::update('tasks')
+            ->set(['status' => $new_status])
+            ->where('id', $id)
+            ->execute();
+    }
 }
