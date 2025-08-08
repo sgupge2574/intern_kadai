@@ -77,7 +77,7 @@ class Controller_Project extends Controller
     public function action_create()
     {
         // POSTリクエストの場合（フォーム送信時）
-        if (Input::method() == 'POST') {
+        if (Input::method() === 'POST') {
             // バリデーション設定
             $val = Validation::forge();
             $val->add('name', 'プロジェクト名')->add_rule('required');
@@ -132,7 +132,7 @@ class Controller_Project extends Controller
             $project_data = $result->current();
             
             // POSTリクエストの場合（フォーム送信時）
-            if (Input::method() == 'POST') {
+            if (Input::method() === 'POST') {
                 // バリデーション設定
                 $val = Validation::forge();
                 $val->add('name', 'プロジェクト名')->add_rule('required');
