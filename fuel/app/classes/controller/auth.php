@@ -18,7 +18,7 @@ class Controller_Auth extends Controller
         }
 
         // POSTリクエストの場合（ログインフォーム送信時）
-        if (Input::method() == 'POST') {
+        if (Input::method() === 'POST') {
             // フォームデータを取得
             $name = Input::post('name');
             $password = Input::post('password');
@@ -77,7 +77,7 @@ class Controller_Auth extends Controller
         }
 
         // POSTリクエストの場合（登録フォーム送信時）
-        if (Input::method() == 'POST') {
+        if (Input::method() === 'POST') {
             // フォームデータを取得
             $name = Input::post('name');
             $password = Input::post('password');

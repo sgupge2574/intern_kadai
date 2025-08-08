@@ -26,7 +26,7 @@ class Controller_Task extends Controller
 
             $project_data = $project_result->current();
 
-            if (Input::method() == 'POST') {
+            if (Input::method() === 'POST') {
                 $val = Validation::forge();
                 $val->add('name', 'タスク名')->add_rule('required');
 
@@ -91,7 +91,7 @@ class Controller_Task extends Controller
 
             $project_data = $project_result->current();
 
-            if (Input::method() == 'POST') {
+            if (Input::method() === 'POST') {
                 $val = Validation::forge();
                 $val->add('name', 'タスク名')->add_rule('required');
 
