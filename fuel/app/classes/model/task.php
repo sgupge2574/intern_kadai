@@ -14,4 +14,24 @@ class Model_Task extends \Model
             ->execute();
     }
 
+    public static function find_by_id($id)
+    {
+        $result = DB::select('*')
+            ->from('tasks')
+            ->where('id', $id)
+            ->execute();
+
+        return $result->count() > 0 ? $result->current() : null;
+    }
+
+    public static function update_task($id, $name, $due_date)
+    {
+        return DB::update('tasks')
+            ->set(array(
+                'name' => $name,
+                'due_date' => $due_date
+            ))
+            ->where('id', $id)
+            ->execute();
+    }
 }

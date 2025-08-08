@@ -73,10 +73,7 @@ class Controller_Task extends Controller
     {
         try {
             // タスクの取得
-            $task_result = DB::select('*')
-                ->from('tasks')
-                ->where('id', $id)
-                ->execute();
+            $task_result = = Model_Task::find_by_id($id);
 
             if ($task_result->count() == 0) {
                 Session::set_flash('error', 'タスクが見つかりません');
@@ -86,12 +83,7 @@ class Controller_Task extends Controller
             $task_data = $task_result->current();
 
             // タスクの所有者確認
-            $project_result = DB::select('*')
-                ->from('projects')
-                ->where('id', $task_data['project_id'])
-                ->where('user_id', Session::get('user_id'))
-                ->execute();
-
+            $project_result = Model_Project::find_by_id_and_user($task_data['project_id'], Session::get('user_id'));
             if ($project_result->count() == 0) {
                 Session::set_flash('error', 'アクセス権限がありません');
                 return Response::redirect('project');
@@ -110,13 +102,8 @@ class Controller_Task extends Controller
                             $due_date = date('Y-m-d');
                         }
 
-                        DB::update('tasks')
-                            ->set(array(
-                                'name' => Input::post('name'),
-                                'due_date' => $due_date
-                            ))
-                            ->where('id', $id)
-                            ->execute();
+                        Model_Task::update_task($id, Input::post('name'), $due_date);
+
                         
                         Session::set_flash('success', 'タスクを更新しました');
                         return Response::redirect('project/view/'.$task_data['project_id']);
