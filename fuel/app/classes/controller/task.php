@@ -38,15 +38,7 @@ class Controller_Task extends Controller
                             $due_date = date('Y-m-d');
                         }
 
-                        DB::insert('tasks')
-                            ->set(array(
-                                'project_id' => $project_id,
-                                'name' => Input::post('name'),
-                                'due_date' => $due_date,
-                                'status' => 0,
-                                'created_at' => date('Y-m-d H:i:s')
-                            ))
-                            ->execute();
+                        Model_Task::create_task($project_id, Input::post('name'), $due_date);
                         
                         Session::set_flash('success', 'タスクを追加しました');
                         return Response::redirect('project/view/'.$project_id);

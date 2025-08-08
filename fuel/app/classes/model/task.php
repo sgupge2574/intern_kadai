@@ -1,26 +1,17 @@
 <?php
 class Model_Task extends \Model
 {
-    public static function find_by_id($id)
+    public static function create_task($project_id, $name, $due_date)
     {
-        return DB::select('*')->from('tasks')->where('id', $id)->execute()->current();
-    }
-
-    public static function create($data)
-    {
-        return DB::insert('tasks')->set($data)->execute();
-    }
-
-    public static function update_status($id, $status)
-    {
-        return DB::update('tasks')
-            ->set(['status' => $status])
-            ->where('id', $id)
+        return DB::insert('tasks')
+            ->set(array(
+                'project_id' => $project_id,
+                'name' => $name,
+                'due_date' => $due_date,
+                'status' => 0,
+                'created_at' => date('Y-m-d H:i:s')
+            ))
             ->execute();
     }
 
-    public static function delete($id)
-    {
-        return DB::delete('tasks')->where('id', $id)->execute();
-    }
 }
