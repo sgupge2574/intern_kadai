@@ -18,7 +18,7 @@ class Model_Project extends \Model
     /**
      * 指定ユーザーの全プロジェクトを取得（作成日の降順）
      */
-        public static function find_by_user_id($user_id)
+    public static function find_by_user_id($user_id)
     {
         return DB::select('*')
             ->from('projects')
@@ -29,7 +29,7 @@ class Model_Project extends \Model
     /**
     * 新しいプロジェクトを作成する
     */
-        public static function create_project($name, $user_id)
+    public static function create_project($name, $user_id)
     {
         return DB::insert('projects')
             ->set(array(
@@ -60,11 +60,11 @@ class Model_Project extends \Model
      */
     public static function exists_by_id_and_user($project_id, $user_id)
     {
-    return DB::select('id')
-        ->from('projects')
-        ->where('id', $project_id)
-        ->where('user_id', $user_id)
-        ->execute()
+        return DB::select('id')
+            ->from('projects')
+            ->where('id', $project_id)
+            ->where('user_id', $user_id)
+            ->execute()
     }
     /**
      * プロジェクトを削除（ユーザーID付きで安全に）

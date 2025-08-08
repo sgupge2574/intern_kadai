@@ -37,6 +37,7 @@ class Model_Task extends \Model
             ->set(array(
                 'name' => $name,
                 'due_date' => $due_date
+                'updated_at' => date('Y-m-d H:i:s')
             ))
             ->where('id', $id)
             ->execute();
@@ -44,7 +45,7 @@ class Model_Task extends \Model
     /**
      * タスクをIDで削除する
      */
-        public static function delete_by_id($id)
+    public static function delete_by_id($id)
     {
         return DB::delete('tasks')
             ->where('id', $id)
@@ -54,7 +55,7 @@ class Model_Task extends \Model
     /**
      * タスクのステータスを更新する
      */
-     public static function update_status($id, $new_status)
+    public static function update_status($id, $new_status)
     {
         return DB::update('tasks')
             ->set(['status' => $new_status])
@@ -64,7 +65,7 @@ class Model_Task extends \Model
     /**
      * 指定プロジェクトのタスク一覧を作成日時昇順で取得する
      */
-        public static function find_by_project_id_ordered($project_id)
+    public static function find_by_project_id_ordered($project_id)
     {
         return DB::select('*')
             ->from('tasks')
