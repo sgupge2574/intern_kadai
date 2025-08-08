@@ -16,11 +16,8 @@ class Controller_Task extends Controller
     {
         try {
             // プロジェクトの存在確認
-            $project_result = DB::select('*')
-                ->from('projects')
-                ->where('id', $project_id)
-                ->where('user_id', Session::get('user_id'))
-                ->execute();
+            $user_id = Session::get('user_id');
+            $project_result = Model_Project::find_by_id_and_user($project_id, $user_id);
 
             if ($project_result->count() == 0) {
                 Session::set_flash('error', 'プロジェクトが見つかりません');

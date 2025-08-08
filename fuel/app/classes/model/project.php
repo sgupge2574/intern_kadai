@@ -1,29 +1,25 @@
 <?php
-class Model_Project extends \Orm\Model
+
+class Model_Project extends \Model
 {
-    protected static $_table_name = 'projects';
+    public static function find_by_id_and_user($id, $user_id)
+    {
+        return DB::select('*')
+            ->from('projects')
+            ->where('id', $id)
+            ->where('user_id', $user_id)
+            ->execute()
+            ->current();
+    }
 
-    protected static $_properties = array(
-        'id',
-        'user_id',
-        'name',
-        'created_at',
-        'updated_at',
-    );
+    public static function is_owned_by_user($id, $user_id)
+    {
+        $result = DB::select('id')
+            ->from('projects')
+            ->where('id', $id)
+            ->where('user_id', $user_id)
+            ->execute();
 
-    protected static $_belongs_to = array(
-        'user' => array(
-            'model_to' => 'Model_User',
-            'key_from' => 'user_id',
-            'key_to' => 'id',
-        ),
-    );
-
-    protected static $_has_many = array(
-        'tasks' => array(
-            'model_to' => 'Model_Task',
-            'key_from' => 'id',
-            'key_to' => 'project_id',
-        ),
-    );
+        return $result->count() > 0;
+    }
 }

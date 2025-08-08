@@ -1,23 +1,26 @@
 <?php
-class Model_Task extends \Orm\Model
+class Model_Task extends \Model
 {
-    protected static $_table_name = 'tasks';
+    public static function find_by_id($id)
+    {
+        return DB::select('*')->from('tasks')->where('id', $id)->execute()->current();
+    }
 
-    protected static $_properties = array(
-        'id',
-        'project_id',
-        'name',
-        'due_date',
-        'status',
-        'created_at',
-        'updated_at',
-    );
+    public static function create($data)
+    {
+        return DB::insert('tasks')->set($data)->execute();
+    }
 
-    protected static $_belongs_to = array(
-        'project' => array(
-            'model_to' => 'Model_Project',
-            'key_from' => 'project_id',
-            'key_to' => 'id',
-        ),
-    );
+    public static function update_status($id, $status)
+    {
+        return DB::update('tasks')
+            ->set(['status' => $status])
+            ->where('id', $id)
+            ->execute();
+    }
+
+    public static function delete($id)
+    {
+        return DB::delete('tasks')->where('id', $id)->execute();
+    }
 }
