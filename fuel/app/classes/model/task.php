@@ -1,6 +1,9 @@
 <?php
 class Model_Task extends \Model
 {
+    /**
+     * 新しいタスクを作成する
+     */
     public static function create_task($project_id, $name, $due_date)
     {
         return DB::insert('tasks')
@@ -13,7 +16,9 @@ class Model_Task extends \Model
             ))
             ->execute();
     }
-
+    /**
+     * IDでタスクを取得する
+     */
     public static function find_by_id($id)
     {
         $result = DB::select('*')
@@ -23,34 +28,44 @@ class Model_Task extends \Model
 
         return $result->count() > 0 ? $result->current() : null;
     }
-
+    /**
+     * タスクの内容を更新する
+     */
     public static function update_task($id, $name, $due_date)
     {
         return DB::update('tasks')
             ->set(array(
                 'name' => $name,
                 'due_date' => $due_date
+                'updated_at' => date('Y-m-d H:i:s')
             ))
             ->where('id', $id)
             ->execute();
     }
-
-        public static function delete_by_id($id)
+    /**
+     * タスクをIDで削除する
+     */
+    public static function delete_by_id($id)
     {
         return DB::delete('tasks')
             ->where('id', $id)
             ->execute();
     }
 
-     public static function update_status($id, $new_status)
+    /**
+     * タスクのステータスを更新する
+     */
+    public static function update_status($id, $new_status)
     {
         return DB::update('tasks')
             ->set(['status' => $new_status])
             ->where('id', $id)
             ->execute();
     }
-
-        public static function find_by_project_id_ordered($project_id)
+    /**
+     * 指定プロジェクトのタスク一覧を作成日時昇順で取得する
+     */
+    public static function find_by_project_id_ordered($project_id)
     {
         return DB::select('*')
             ->from('tasks')
