@@ -1,21 +1,34 @@
 <?php
-class Model_User extends \Orm\Model
+class Model_User extends Model
 {
-    protected static $_table_name = 'users';
+    public static function authenticate($username, $password)
+    {
+        return DB::select('*')
+            ->from('users')
+            ->where('username', $username)
+            ->where('password', md5($password))  
+            ->execute()
+            ->current();
+    }
 
-    protected static $_properties = array(
-        'id',
-        'password',
-        'username',
-        'created_at',
-        'updated_at',
-    );
+        public static function exists_by_username($username)
+    {
+        $result = DB::select('id')
+            ->from('users')
+            ->where('username', $username)
+            ->execute();
 
-    protected static $_has_many = array(
-        'projects' => array(
-            'model_to' => 'Model_Project',
-            'key_from' => 'id',
-            'key_to' => 'user_id',
-        ),
-    );
+        return $result->count() > 0;
+    }
+
+        public static function create_user($username, $password)
+    {
+        return DB::insert('users')
+            ->set([
+                'username' => $username,
+                'password' => md5($password),
+                'created_at' => date('Y-m-d H:i:s'),
+            ])
+            ->execute();
+    }
 }

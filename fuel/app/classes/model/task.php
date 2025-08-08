@@ -1,23 +1,61 @@
 <?php
-class Model_Task extends \Orm\Model
+class Model_Task extends \Model
 {
-    protected static $_table_name = 'tasks';
+    public static function create_task($project_id, $name, $due_date)
+    {
+        return DB::insert('tasks')
+            ->set(array(
+                'project_id' => $project_id,
+                'name' => $name,
+                'due_date' => $due_date,
+                'status' => 0,
+                'created_at' => date('Y-m-d H:i:s')
+            ))
+            ->execute();
+    }
 
-    protected static $_properties = array(
-        'id',
-        'project_id',
-        'name',
-        'due_date',
-        'status',
-        'created_at',
-        'updated_at',
-    );
+    public static function find_by_id($id)
+    {
+        $result = DB::select('*')
+            ->from('tasks')
+            ->where('id', $id)
+            ->execute();
 
-    protected static $_belongs_to = array(
-        'project' => array(
-            'model_to' => 'Model_Project',
-            'key_from' => 'project_id',
-            'key_to' => 'id',
-        ),
-    );
+        return $result->count() > 0 ? $result->current() : null;
+    }
+
+    public static function update_task($id, $name, $due_date)
+    {
+        return DB::update('tasks')
+            ->set(array(
+                'name' => $name,
+                'due_date' => $due_date
+            ))
+            ->where('id', $id)
+            ->execute();
+    }
+
+        public static function delete_by_id($id)
+    {
+        return DB::delete('tasks')
+            ->where('id', $id)
+            ->execute();
+    }
+
+     public static function update_status($id, $new_status)
+    {
+        return DB::update('tasks')
+            ->set(['status' => $new_status])
+            ->where('id', $id)
+            ->execute();
+    }
+
+        public static function find_by_project_id_ordered($project_id)
+    {
+        return DB::select('*')
+            ->from('tasks')
+            ->where('project_id', $project_id)
+            ->order_by('created_at', 'asc')
+            ->execute()
+    }
 }

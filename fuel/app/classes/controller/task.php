@@ -8,7 +8,7 @@ class Controller_Task extends Controller
         
         // ログインチェック
         if (!Session::get('user_id')) {
-            return Response::redirec('auth/login');
+            return Response::redirect('auth/login');
         }
     }
 
@@ -16,15 +16,12 @@ class Controller_Task extends Controller
     {
         try {
             // プロジェクトの存在確認
-            $project_result = DB::select('*')
-                ->from('projects')
-                ->where('id', $project_id)
-                ->where('user_id', Session::get('user_id'))
-                ->execute();
+            $user_id = Session::get('user_id');
+            $project_result = Model_Project::find_by_id_and_user($project_id, $user_id);
 
             if ($project_result->count() == 0) {
                 Session::set_flash('error', 'プロジェクトが見つかりません');
-                return Response::redirec('project');
+                return Response::redirect('project');
             }
 
             $project_data = $project_result->current();
@@ -41,18 +38,10 @@ class Controller_Task extends Controller
                             $due_date = date('Y-m-d');
                         }
 
-                        DB::insert('tasks')
-                            ->set(array(
-                                'project_id' => $project_id,
-                                'name' => Input::post('name'),
-                                'due_date' => $due_date,
-                                'status' => 0,
-                                'created_at' => date('Y-m-d H:i:s')
-                            ))
-                            ->execute();
+                        Model_Task::create_task($project_id, Input::post('name'), $due_date);
                         
                         Session::set_flash('success', 'タスクを追加しました');
-                        return Response::redirec('project/view/'.$project_id);
+                        return Response::redirect('project/view/'.$project_id);
                     } catch (Exception $e) {
                         Session::set_flash('error', 'データベース接続エラー: ' . $e->getMessage());
                     }
@@ -76,7 +65,7 @@ class Controller_Task extends Controller
 
         } catch (Exception $e) {
             Session::set_flash('error', 'データベース接続エラー: ' . $e->getMessage());
-            return Response::redirec('project');
+            return Response::redirect('project');
         }
     }
 
@@ -84,28 +73,20 @@ class Controller_Task extends Controller
     {
         try {
             // タスクの取得
-            $task_result = DB::select('*')
-                ->from('tasks')
-                ->where('id', $id)
-                ->execute();
+            $task_result = = Model_Task::find_by_id($id);
 
             if ($task_result->count() == 0) {
                 Session::set_flash('error', 'タスクが見つかりません');
-                return Response::redirec('project');
+                return Response::redirect('project');
             }
 
             $task_data = $task_result->current();
 
             // タスクの所有者確認
-            $project_result = DB::select('*')
-                ->from('projects')
-                ->where('id', $task_data['project_id'])
-                ->where('user_id', Session::get('user_id'))
-                ->execute();
-
+            $project_result = Model_Project::find_by_id_and_user($task_data['project_id'], Session::get('user_id'));
             if ($project_result->count() == 0) {
                 Session::set_flash('error', 'アクセス権限がありません');
-                return Response::redirec('project');
+                return Response::redirect('project');
             }
 
             $project_data = $project_result->current();
@@ -121,16 +102,11 @@ class Controller_Task extends Controller
                             $due_date = date('Y-m-d');
                         }
 
-                        DB::update('tasks')
-                            ->set(array(
-                                'name' => Input::post('name'),
-                                'due_date' => $due_date
-                            ))
-                            ->where('id', $id)
-                            ->execute();
+                        Model_Task::update_task($id, Input::post('name'), $due_date);
+
                         
                         Session::set_flash('success', 'タスクを更新しました');
-                        return Response::redirec('project/view/'.$task_data['project_id']);
+                        return Response::redirect('project/view/'.$task_data['project_id']);
                     } catch (Exception $e) {
                         Session::set_flash('error', 'データベース接続エラー: ' . $e->getMessage());
                     }
@@ -164,7 +140,7 @@ class Controller_Task extends Controller
 
         } catch (Exception $e) {
             Session::set_flash('error', 'データベース接続エラー: ' . $e->getMessage());
-            return Response::redirec('project');
+            return Response::redirect('project');
         }
     }
 
@@ -172,43 +148,34 @@ class Controller_Task extends Controller
     {
         try {
             // タスクの取得
-            $task_result = DB::select('*')
-                ->from('tasks')
-                ->where('id', $id)
-                ->execute();
+            $task_result = Model_Task::find_by_id($id);
 
             if ($task_result->count() == 0) {
                 Session::set_flash('error', 'タスクが見つかりません');
-                return Response::redirec('project');
+                return Response::redirect('project');
             }
 
             $task_data = $task_result->current();
 
             // タスクの所有者確認
-            $project_result = DB::select('id')
-                ->from('projects')
-                ->where('id', $task_data['project_id'])
-                ->where('user_id', Session::get('user_id'))
-                ->execute();
+            $project_result = Model_Project::find_by_id_and_user($task_data['project_id'], Session::get('user_id'));
 
             if ($project_result->count() == 0) {
                 Session::set_flash('error', 'アクセス権限がありません');
-                return Response::redirec('project');
+                return Response::redirect('project');
             }
 
             $project_id = $task_data['project_id'];
 
             // タスクを削除
-            DB::delete('tasks')
-                ->where('id', $id)
-                ->execute();
+            Model_Task::delete_by_id($id);
 
             Session::set_flash('success', 'タスクを削除しました');
-            return Response::redirec('project/view/'.$project_id);
+            return Response::redirect('project/view/'.$project_id);
             
         } catch (Exception $e) {
             Session::set_flash('error', '削除に失敗しました: ' . $e->getMessage());
-            return Response::redirec('project');
+            return Response::redirect('project');
         }
     }
 
@@ -216,10 +183,7 @@ class Controller_Task extends Controller
     {
         try {
             // タスクの取得
-            $task_result = DB::select('*')
-                ->from('tasks')
-                ->where('id', $id)
-                ->execute();
+            $task_result = Model_Task::find_by_id($id);
 
             if ($task_result->count() == 0) {
                 return Response::forge(json_encode(array('success' => false)), 404);
@@ -228,11 +192,7 @@ class Controller_Task extends Controller
             $task_data = $task_result->current();
 
             // タスクの所有者確認
-            $project_result = DB::select('id')
-                ->from('projects')
-                ->where('id', $task_data['project_id'])
-                ->where('user_id', Session::get('user_id'))
-                ->execute();
+            $project_result = Model_Project::find_by_id_and_user($task_data['project_id'], Session::get('user_id'));
 
             if ($project_result->count() == 0) {
                 return Response::forge(json_encode(array('success' => false)), 403);
@@ -241,10 +201,8 @@ class Controller_Task extends Controller
             // ステータスを切り替え
             $new_status = $task_data['status'] ? 0 : 1;
 
-            DB::update('tasks')
-                ->set(array('status' => $new_status))
-                ->where('id', $id)
-                ->execute();
+            Model_Task::update_status($id, $new_status);
+
             
             return Response::forge(json_encode(array(
                 'success' => true,
