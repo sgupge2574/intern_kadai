@@ -1,6 +1,9 @@
 <?php
 class Model_Task extends \Model
 {
+    /**
+     * 新しいタスクを作成する
+     */
     public static function create_task($project_id, $name, $due_date)
     {
         return DB::insert('tasks')
@@ -13,7 +16,9 @@ class Model_Task extends \Model
             ))
             ->execute();
     }
-
+    /**
+     * IDでタスクを取得する
+     */
     public static function find_by_id($id)
     {
         $result = DB::select('*')
@@ -23,7 +28,9 @@ class Model_Task extends \Model
 
         return $result->count() > 0 ? $result->current() : null;
     }
-
+    /**
+     * タスクの内容を更新する
+     */
     public static function update_task($id, $name, $due_date)
     {
         return DB::update('tasks')
@@ -34,7 +41,9 @@ class Model_Task extends \Model
             ->where('id', $id)
             ->execute();
     }
-
+    /**
+     * タスクをIDで削除する
+     */
         public static function delete_by_id($id)
     {
         return DB::delete('tasks')
@@ -42,6 +51,9 @@ class Model_Task extends \Model
             ->execute();
     }
 
+    /**
+     * タスクのステータスを更新する
+     */
      public static function update_status($id, $new_status)
     {
         return DB::update('tasks')
@@ -49,7 +61,9 @@ class Model_Task extends \Model
             ->where('id', $id)
             ->execute();
     }
-
+    /**
+     * 指定プロジェクトのタスク一覧を作成日時昇順で取得する
+     */
         public static function find_by_project_id_ordered($project_id)
     {
         return DB::select('*')

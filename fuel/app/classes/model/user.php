@@ -1,6 +1,9 @@
 <?php
 class Model_User extends Model
 {
+    /**
+     * ユーザー名とパスワードで認証を行う
+     */
     public static function authenticate($username, $password)
     {
         return DB::select('*')
@@ -11,7 +14,10 @@ class Model_User extends Model
             ->current();
     }
 
-        public static function exists_by_username($username)
+    /**
+     * 指定したユーザー名がすでに存在するかチェックする
+     */
+    public static function exists_by_username($username)
     {
         $result = DB::select('id')
             ->from('users')
@@ -21,7 +27,10 @@ class Model_User extends Model
         return $result->count() > 0;
     }
 
-        public static function create_user($username, $password)
+    /**
+     * 新規ユーザーをデータベースに登録する
+     */
+    public static function create_user($username, $password)
     {
         return DB::insert('users')
             ->set([
